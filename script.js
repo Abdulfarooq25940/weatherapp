@@ -15,19 +15,22 @@ const recentList = document.querySelector("#recentList")
 const currentbtn = document.querySelector("#currentbtn")
 
 let historyitems = localStorage.getItem("historyitems") ? JSON.parse(localStorage.getItem("historyitems")) : []
+//empty array initially, if there is no data in local storage, it will be empty
+//if there is data, it will be parsed and stored in historyitems
 
 
 function updateRecentCities(city) {
   if (!historyitems.includes(city)) {
     historyitems.unshift(city);
     localStorage.setItem("historyitems", JSON.stringify(historyitems));
-    renderRecentDropdown();
+    renderRecentDropdown();//function to show the list of searched cities
   }
 }
 
 
 currentbtn.addEventListener('click', () => {
-  navigator.geolocation.getCurrentPosition(pos => {
+  navigator.geolocation.getCurrentPosition(pos => {//location api
+    //get the current position of the user
     const { latitude, longitude } = pos.coords;
     getcurrentweather(latitude,longitude)
   });
@@ -41,7 +44,7 @@ function renderRecentDropdown() {
   }else{
     recentToggle.style.display="block"
   }
-  historyitems.forEach((city) => {
+  historyitems.forEach((city) => {//dropdown items
     const li = document.createElement('li');
     li.innerHTML = city;
     li.className = 'py-2 hover:bg-gray-300 text-center cursor-pointer';
@@ -52,11 +55,11 @@ function renderRecentDropdown() {
 
 
 recentToggle.addEventListener('click', () => {
-  recentList.classList.toggle('hidden');
+  recentList.classList.toggle('hidden');//historyitems list toggle
 });
 
 
-button.addEventListener("click",()=>{
+button.addEventListener("click",()=>{//weather display with mouse click
   const city=input.value;
   if(city=="")return;
   weatherrender(city)
@@ -64,13 +67,13 @@ button.addEventListener("click",()=>{
 })
 
 input.addEventListener("keydown",(event)=>{
-  if(event.key=="Enter" && input.value.trim()!=""){
+  if(event.key=="Enter" && input.value.trim()!=""){//weather display with enter key
     weatherrender(input.value)
     input.value=""
   }
 })
 async function getcurrentweather(lat,lon){
-  const Url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${ApiKey}&units=metric`
+  const Url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${ApiKey}&units=metric`//openweathermap api for coordinates
   const currentReponse = await fetch(Url)
   const currentData = await currentReponse.json()
   weatherrender(currentData.name)
@@ -78,7 +81,7 @@ async function getcurrentweather(lat,lon){
   
 async  function getWeatherData(endPoint,city){
 try{
-  const apiUrl = `https://api.openweathermap.org/data/2.5/${endPoint}?q=${city}&appid=${ApiKey}&units=metric`
+  const apiUrl = `https://api.openweathermap.org/data/2.5/${endPoint}?q=${city}&appid=${ApiKey}&units=metric`//fetching with city name
   const response = await fetch(apiUrl)
   return response.json()
 }catch{
@@ -87,8 +90,8 @@ try{
 }
 
 async function weatherrender(city){
-  const weatherData = await getWeatherData('weather',city)
-  const forecastData = await getWeatherData('forecast',city)
+  const weatherData = await getWeatherData('weather',city)//fectching current date weather data
+  const forecastData = await getWeatherData('forecast',city)//fetching forecast data
  if(weatherData.cod!=200){
   alert("Enter a valid city name")
   return  
@@ -98,7 +101,7 @@ async function weatherrender(city){
   updateRecentCities(city)
 }
 
-function displaytemp(weatherData){
+function displaytemp(weatherData){//function to display present weather
 weatherdiv.style.display="inline"
 let getdate = new Date()
 getdate = getdate.toString().split(" ")
@@ -112,7 +115,7 @@ icon.src=`${geticon(weatherData.weather[0].id)}`
 }
 
 
-function geticon(id){
+function geticon(id){//function to get the icon of the weather
   if(id<=232){
     return "thunderstorm.png"
   }else if(id<=321){
@@ -130,7 +133,7 @@ function geticon(id){
   }
 }
 
-function displayForecast(forecastData){
+function displayForecast(forecastData){//forecast filter down, for only one time period from the forecastData
   forecastcontainer.innerHTML=""
   const timeTaken = '12:00:00'
   const todayDate =  new Date().toISOString().split('T')[0]
@@ -140,7 +143,7 @@ function displayForecast(forecastData){
     }
   })
 }
-function forecastitems(fore){
+function forecastitems(fore){//below is rendering of the forecast for 5 days
   const date = new Date(fore.dt * 1000).toLocaleDateString();
   const {
     weather:[{id}],
