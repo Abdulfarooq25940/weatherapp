@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather!!!</title>
+  <link rel="stylesheet" href="ouput.css">
+  <link rel="icon" href="icon.png"type="image/x-icon">
+</head>
+<body class="bg-slate-200">
+  <main> 
+    <h1 class="bg-teal-500 text-3xl md:text-5xl text-center py-3">Weather Forecast</h1>
+    <div class="flex flex-col lg:flex-row space-x-2">
+      <div class="flex mt-4 pt-2 basis-full flex-col max-w-[400px] gap-y-2">
+        <label for="inputfield" class="mx-2 font-bold">Enter a city name</label>
+        <input id="inputfield" type="text" class="mx-2 border-1 p-1 rounded-sm">
+        <button id="searchbtn" class="border-1 bg-blue-300 rounded-sm mx-2 p-1">Search</button>
+        <button id="currentbtn" class="border-1 bg to-blue-300 rounded-sm mx-2 p-1">Current Location</button>
+        <button id="recentToggle" class="text-center mx-2 p-1 bg-gray-400 border-1 rounded-sm">History</button>
+        <ul id="recentList" class="hidden border-1 border-gray-300 rounded shadow mx-2 p-1 mt-1 max-h-40 overflow-auto"></ul>
+      </div>
+      
+      <div class="weatherdiv hidden  mt-4 mx-2 flex-col basis-full max-w-[1200px] bg-linear-to-l from-yellow-200 to-blue-300 border-1 rounded-2xl">
+        <h2 class="cityName text-center pt-1.5 pb-1.5 text-2xl md:text-3xl font-medium ">Hyderabad</h2>
+        <div class=" m-4 flex flex-col md:flex-row">
+          <div class="flex flex-col justify-center items-center basis-full">
+            <img id="weathericon" class="w-[80px] " src="sunny.webp" alt="">
+            <p class="weathersummary"></p>
+          </div>
+          <div class="flex justify-center text-xl md:text-2xl items-center flex-col basis-full">
+            <h3 id="temp">Temperature</h3> 
+          </div>
+          <div class="flex justify-center items-center text-xl md:text-2xl  flex-col basis-full">
+            <h3 id="wind">Wind</h3>
+          </div>
+          <div class="flex justify-center items-center text-xl md:text-2xl  flex-col basis-full">
+            <h3 id="humidity">Humidity</h3>
+          </div>
+        </div>
+        <h2 class="text-2xl bg-teal-500 text-center">5-Day forecast</h2>
+        <div class="forecastcontainer flex justify-center items-center flex-col md:flex-row m-4 gap-2">
+          <div class="flex flex-col w-[208px] h-[200px] bg-gray-200 justify-center items-center">
+            <h2 id="day1date">May 07 2025</h2>
+            <img class="day1icon w-[60px]" src="clouds.png" alt="">
+            <p id="day1temp">Temperature</p>
+            <p id="day1wind">Wind</p>
+            <p id="day1humidity">Humidity</p>
+          </div>
+          <div class="flex flex-col w-[208px] h-[200px] bg-gray-200 justify-center items-center">
+            <h2 id="day2date">May 08 2025</h2>
+            <img class="day2icon w-[60px]" src="clouds.png" alt="">
+            <p id="day2temp">Temperature</p>
+            <p id="day2wind">Wind</p>
+            <p id="day2humidity">Humidity</p>
+          </div>
+          <div class="flex flex-col w-[208px] h-[200px] bg-gray-200 justify-center items-center">
+            <h2 id="day3date">May 09 2025</h2>  
+            <img class="day3icon w-[60px]" src="clouds.png" alt="">
+            <p id="day3temp">Temperature</p>
+            <p id="day3wind">Wind</p>
+            <p id="day3humidity">Humidity</p>
+          </div>
+          <div class="flex flex-col w-[208px] h-[200px] bg-gray-200 justify-center items-center">
+            <h2 id="day4date">May 10 2025</h2>
+            <img class="day4icon w-[60px]" src="clouds.png" alt="">
+            <p id="day4temp">Temperature</p>
+            <p id="day4wind">Wind</p>
+            <p id="day4humidity">Humidity</p>
+          </div>
+          <div class="flex flex-col w-[208px] h-[200px] bg-gray-200 justify-center items-center">
+            <h2 id="day5date">May 11 2025</h2>
+            <img class="day5icon w-[60px]" src="clouds.png" alt="">
+            <p id="day5temp">Temperature</p>
+            <p id="day5wind">Wind</p>
+            <p id="day5humidity">Humidity</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
